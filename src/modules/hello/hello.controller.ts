@@ -10,12 +10,18 @@ import {
   Delete,
 } from '@nestjs/common';
 import { HelloService } from './hello.service';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('hello')
 export class HelloController {
   constructor(private readonly helloService: HelloService) {}
 
   /** 查詢 */
+  @ApiQuery({
+    // type: 'string',
+    name: 'id',
+    description: 'The id of the user',
+  })
   @Get()
   fetch(@Query() query, @Headers('token') token): string {
     console.log('token: ', token);
