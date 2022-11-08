@@ -10,9 +10,10 @@ import { HelloModule } from './modules/hello/hello.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
+import { FileuploadModule } from './modules/fileupload/fileupload.module';
 
 @Module({
-  imports: [HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() , TasksModule],
+  imports: [HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() , TasksModule, FileuploadModule],
   controllers: [AppController],
   providers: [
     {
