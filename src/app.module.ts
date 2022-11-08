@@ -5,6 +5,7 @@ import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './modules/roles/roles.guard';
 
+
 // Module
 import { HelloModule } from './modules/hello/hello.module';
 import { MailModule } from './modules/mail/mail.module';
@@ -13,7 +14,9 @@ import { TasksModule } from './tasks/tasks.module';
 import { FileuploadModule } from './modules/fileupload/fileupload.module';
 
 @Module({
-  imports: [HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() , TasksModule, FileuploadModule],
+  imports: [
+    HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() , TasksModule, FileuploadModule,
+],
   controllers: [AppController],
   providers: [
     {

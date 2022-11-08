@@ -12,11 +12,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { SampleDto } from './dto//sample.dto';
 
-
 @Controller('fileupload')
 export class FileuploadController {
-
-  constructor( ){}
+  constructor() {}
 
   /** */
   @UseInterceptors(FileInterceptor('file'))
@@ -24,18 +22,15 @@ export class FileuploadController {
   uploadFile(
     @Body() body: SampleDto,
     @UploadedFile() file: Express.Multer.File,
-    ) {
-
-      console.log('body: ', body);
-      console.log('file: ', file);
-
+  ) {
+    console.log('body: ', body);
+    console.log('file: ', file);
 
     return {
       body,
       file: file.buffer.toString(),
     };
   }
-
 
   /**  */
   @UseInterceptors(FileInterceptor('file'))
@@ -59,7 +54,6 @@ export class FileuploadController {
     };
   }
 
-
   /** */
   @UseInterceptors(FileInterceptor('file'))
   @Post('file/fail-validation')
@@ -74,13 +68,12 @@ export class FileuploadController {
     )
     file: Express.Multer.File,
   ) {
-
-console.log('file/fail-validation', file)
+    console.log('file/fail-validation', file);
 
     return {
       body,
-      file: file.buffer.toString(),
+      file, /**file.buffer */
+      originalname: file.originalname,
     };
   }
-
 }
