@@ -6,9 +6,10 @@ import {
   ParseFilePipeBuilder,
   Post,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { SampleDto } from './dto//sample.dto';
 
@@ -54,26 +55,33 @@ export class FileuploadController {
     };
   }
 
-  /** */
-  @UseInterceptors(FileInterceptor('file'))
+  /** 單一欄位之多個檔案上傳 */
+  @UseInterceptors(FilesInterceptor('files'))
   @Post('file/fail-validation')
-  uploadFileAndFailValidation(
-    @Body() body: SampleDto,
-    @UploadedFile(
+  uploadFileAndFailValidation(@Body() body: SampleDto,
+    @UploadedFiles(
+      // 這段會錯誤，可關閉
       new ParseFilePipeBuilder()
         .addFileTypeValidator({
           fileType: /(jpg|jpeg|png|gif)$/,
         })
         .build(),
     )
-    file: Express.Multer.File,
+    files: Express.Multer.File[],
   ) {
-    console.log('file/fail-validation', file);
+    // console.log('file/fail-validation', files);
 
     return {
       body,
-      file, /**file.buffer */
-      originalname: file.originalname,
+      files, /**file.buffer */
+      originalname: files.map(({ fieldname, originalname, filename }) => ({
+        fieldname,
+        originalname,
+
+        file: {
+          url: `http://localhost:3000/uploads/${filename}`, // 回傳經泰路徑，讓前端可以訪問
+        }
+      })),
     };
   }
 }

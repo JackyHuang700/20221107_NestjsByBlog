@@ -12,7 +12,7 @@ import { extname } from 'path'
       MulterModule.register({
         storage: diskStorage({
           // 路徑
-          destination: 'uploads123122',
+          destination: 'uploads',
           filename: (req, file, cb) => {
             // 儲存檔案名稱
             const filename = `${Date.now()}${extname(file.originalname)}`;
