@@ -19,6 +19,9 @@ async function bootstrap() {
   // app.useGlobalGuards(new RolesGuard());
   /** ned.開啟首衛 */
 
+  /** CORS */
+  app.enableCors()
+  /** end.CORS */
 
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
