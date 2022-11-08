@@ -1,18 +1,24 @@
-import { MiddlewareConsumer, Module, NestModule  } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
-import { HelloModule } from './modules/hello/hello.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './modules/roles/roles.guard';
 
+//
+import { HelloModule } from './modules/hello/hello.module';
+import { MailModule } from './modules/mail/mail.module';
+
 @Module({
-  imports: [HelloModule],
+  imports: [HelloModule, MailModule],
   controllers: [AppController],
-  providers: [ {
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  }, AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    AppService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
