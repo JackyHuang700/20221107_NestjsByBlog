@@ -6,6 +6,7 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { RolesGuard } from './modules/roles/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,11 @@ async function bootstrap() {
   /** swagger */
   setupSwagger(app);
   /** end.swagger */
+
+  /** 開啟首衛 */
+  // app.useGlobalGuards(new RolesGuard());
+  /** ned.開啟首衛 */
+
 
   await app.listen(3000);
 }
