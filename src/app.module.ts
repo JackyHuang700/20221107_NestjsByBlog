@@ -12,10 +12,16 @@ import { MailModule } from './modules/mail/mail.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
 import { FileuploadModule } from './modules/fileupload/fileupload.module';
+import { CommonUtilityModule } from './modules/common-utility/common-utility.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
     HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() , TasksModule, FileuploadModule,
+    CommonUtilityModule,
+    AuthModule,
+    UserModule,
 ],
   controllers: [AppController],
   providers: [

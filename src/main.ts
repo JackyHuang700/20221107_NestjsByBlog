@@ -16,7 +16,7 @@ async function bootstrap() {
   /** end.swagger */
 
   /** 開啟首衛 */
-  // app.useGlobalGuards(new RolesGuard());
+  app.useGlobalGuards(new RolesGuard());
   /** ned.開啟首衛 */
 
   /** CORS */
