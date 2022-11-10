@@ -6,6 +6,10 @@ import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { join } from 'path';
+
+
+// const fs = require("fs");
 
 @Controller('auth')
 export class AuthController {
@@ -76,5 +80,27 @@ export class AuthController {
   @Get('profile')
   getProfile(@Req() req) {
     return req.user;
+  }
+
+  /** downloadUserData */
+  @Get('downloadUserData')
+  async downloadUserData() {
+
+    return await this.authService.getPPTData()
+
+    // const users: any = [
+    //   {
+    //     email: 'JK',
+    //     username: 'jacky8595125@gmail.com',
+    //     password: {
+    //       hash: 'cc2aa80aaf544d812fa637682d189d572851ebe080efab32ce29fb78edaa1db7d5f760248cc269cca68c54a39754ab0fc1187fca5b067b708b752d85fca0e898',
+    //       salt: 'ea506553571613723c3e1051b78dca70',
+    //     },
+    //   },
+    // ];
+    // await fs.writeFileSync(join(process.cwd(), 'db', 'users.json'), JSON.stringify(users));
+    // fs.writeFileSync(/**join(process.cwd(), 'db', 'users.json') */join(process.cwd()+'/db'+ '/users.json') , JSON.stringify(users));
+    // const _data = this.getData()
+
   }
 }
