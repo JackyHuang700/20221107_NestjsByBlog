@@ -1,3 +1,4 @@
+import { LineNotifyModule } from './modules/line-notify/line-notify.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -22,6 +23,7 @@ import { UserModule } from './modules/user/user.module';
     CommonUtilityModule,
     AuthModule,
     UserModule,
+    LineNotifyModule,
 ],
   controllers: [AppController],
   providers: [
