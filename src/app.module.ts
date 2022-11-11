@@ -17,8 +17,29 @@ import { CommonUtilityModule } from './modules/common-utility/common-utility.mod
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 
+// database
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+// entities
+import { User } from './modules/user/entity/user.entity';
+
+// mysql -hcontainers-us-west-34.railway.app -uroot -pfFlsxFmxXzG0G66pN15A --port 7382 --protocol=TCP railway
+// mysql://root:fFlsxFmxXzG0G66pN15A@containers-us-west-34.railway.app:7382/railway
 @Module({
   imports: [
+    /** db */
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      // host: /**'localhost' */'',
+      host: "containers-us-west-34.railway.app",
+      port: 7382,
+      username: 'root',
+      password: 'fFlsxFmxXzG0G66pN15A',
+      database: 'railway',
+      entities: [User],
+      // synchronize: true, // 不應在生產中使用 設置- 否則您可能會丟失生產數據。
+    }),
+    /** end.db */
     HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() , TasksModule, FileuploadModule,
     CommonUtilityModule,
     AuthModule,
