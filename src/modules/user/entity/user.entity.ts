@@ -1,7 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Article } from 'src/modules/article/entity/article.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User{
+
+  @OneToMany(() => Article, article => article.uid)
     @PrimaryGeneratedColumn()
     id: number;
 
