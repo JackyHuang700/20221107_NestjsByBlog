@@ -23,8 +23,8 @@ import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 // entities
-import { User } from './modules/user/entity/user.entity';
-import { Article } from './modules/article/entity/article.entity';
+import { UserEntity } from './modules/user/entity/user.entity';
+import { ArticleEntity } from './modules/article/entity/article.entity';
 
 // mysql -hcontainers-us-west-34.railway.app -uroot -pfFlsxFmxXzG0G66pN15A --port 7382 --protocol=TCP railway
 // mysql://root:fFlsxFmxXzG0G66pN15A@containers-us-west-34.railway.app:7382/railway
@@ -39,7 +39,7 @@ import { Article } from './modules/article/entity/article.entity';
       username: 'root',
       password: 'fFlsxFmxXzG0G66pN15A',
       database: 'railway',
-      entities: [User, Article],
+      entities: [UserEntity, ArticleEntity],
       synchronize: true, // 不應在生產中使用 設置- 否則您可能會丟失生產數據。
     }),
     /** end.db */

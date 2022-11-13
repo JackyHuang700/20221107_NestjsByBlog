@@ -1,33 +1,59 @@
-import { User } from './../../user/entity/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import { UserEntity } from './../../user/entity/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 
-@Entity()
-export class Article{
+@Entity('article')
+export class ArticleEntity{
 
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  @OneToMany(() => User, user => user.id)
-  uid: number;
 
-  @Column()
+  // @Column()
+  @JoinColumn({
+    name: 'uid',
+  })
+  @ManyToOne(type => UserEntity, user => user.id)
+
+  user: UserEntity;
+
+  // @Column()
+  // @OneToMany(() => User, user => user.id)
+  // @RelationId((article: Article) => article.uid)
+  // @Column()
+  // @ManyToOne(() => User, user => user.id)
+  // uid: number;
+
+  @Column({
+    length: 100
+  })
   title: string;
 
-  @Column()
+  @Column({
+    length: 200
+  })
   content: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   createdAt: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   updatedAt: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   deletedAt: string;
 
 }
 
 // drop table article
 // SHOW CREATE TABLE article
-// alter table article drop uidId
+// alter table article drop uid
+
+
+// ALTER TABLE `railway`.`article`
+// DROP COLUMN `uid`;

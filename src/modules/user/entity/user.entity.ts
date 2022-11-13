@@ -1,10 +1,10 @@
-import { Article } from 'src/modules/article/entity/article.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { ArticleEntity } from 'src/modules/article/entity/article.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 
-@Entity()
-export class User{
+@Entity('user')
+export class UserEntity{
 
-  @OneToMany(() => Article, article => article.uid)
+  // @OneToMany(() => Article, article => article.uid)
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -30,4 +30,7 @@ export class User{
 
     @Column()
     deletedAt: string;
+
+  @OneToMany(type => ArticleEntity, c => c.user)
+    article: ArticleEntity[];
 }

@@ -4,7 +4,7 @@ import { Interface } from 'readline';
 import { Repository } from 'typeorm';
 import { CommonUtilityService } from '../common-utility/common-utility.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entity/user.entity';
+import { UserEntity } from './entity/user.entity';
 
 export interface IAaa {
   username: string;
@@ -47,8 +47,8 @@ export class UserService {
   constructor(
     private readonly commonUtilityService: CommonUtilityService,
 
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
   ) {}
 
   /** */
@@ -73,14 +73,14 @@ export class UserService {
   }
 
   /** 取 使用者 by db */
-  getUser(id: number): Promise<User> {
+  getUser(id: number): Promise<UserEntity> {
     return this.usersRepository.findOneBy({
       id,
     });
   }
 
   /** 取 使用者群 by db */
-  getAllUser(): Promise<User[]> {
+  getAllUser(): Promise<UserEntity[]> {
     return this.usersRepository.find();
   }
 }
