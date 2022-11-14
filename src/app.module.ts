@@ -1,3 +1,4 @@
+import { GoogleSpreadsheetModule } from './modules/google-spreadsheet/google-spreadsheet.module';
 import { ArticleModule } from './modules/article/article.module';
 import { LineNotifyModule } from './modules/line-notify/line-notify.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
@@ -49,6 +50,7 @@ import { ArticleEntity } from './modules/article/entity/article.entity';
     UserModule,
     LineNotifyModule,
     ArticleModule,
+    GoogleSpreadsheetModule,
 ],
   controllers: [AppController],
   providers: [
