@@ -44,7 +44,9 @@ import { ArticleEntity } from './modules/article/entity/article.entity';
     //   synchronize: true, // 不應在生產中使用 設置- 否則您可能會丟失生產數據。
     // }),
     /** end.db */
-    HelloModule, MailModule, /** 定時任務 */ScheduleModule.forRoot() ,
+    HelloModule,
+    // MailModule,
+    // /** 定時任務 */ScheduleModule.forRoot() ,
     // TasksModule, FileuploadModule,
     // CommonUtilityModule,
     // AuthModule,
