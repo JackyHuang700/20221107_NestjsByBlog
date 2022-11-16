@@ -54,4 +54,9 @@ export class HelloController {
 
     return this.helloService.remove(id);
   }
+
+  @Get('getHello')
+  getHello(): string {
+    return 'Hello World!';
+  }
 }
