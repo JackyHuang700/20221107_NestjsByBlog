@@ -32,28 +32,29 @@ import { ArticleEntity } from './modules/article/entity/article.entity';
 @Module({
   imports: [
     /** db */
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   // host: /**'localhost' */'',
-    //   host: "containers-us-west-34.railway.app",
-    //   port: 7382,
-    //   username: 'root',
-    //   password: 'fFlsxFmxXzG0G66pN15A',
-    //   database: 'railway',
-    //   entities: [UserEntity, ArticleEntity],
-    //   synchronize: true, // 不應在生產中使用 設置- 否則您可能會丟失生產數據。
-    // }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      // host: /**'localhost' */'',
+      host: "containers-us-west-34.railway.app",
+      port: 7382,
+      username: 'root',
+      password: 'fFlsxFmxXzG0G66pN15A',
+      database: 'railway',
+      entities: [UserEntity, ArticleEntity],
+      synchronize: true, // 不應在生產中使用 設置- 否則您可能會丟失生產數據。
+    }),
     /** end.db */
     HelloModule,
-    // MailModule,
-    // /** 定時任務 */ScheduleModule.forRoot() ,
-    // TasksModule, FileuploadModule,
-    // CommonUtilityModule,
-    // AuthModule,
-    // UserModule,
-    // LineNotifyModule,
-    // ArticleModule,
-    // GoogleSpreadsheetModule,
+    MailModule,
+    /** 定時任務 */ScheduleModule.forRoot(),
+    TasksModule,
+    FileuploadModule,
+    CommonUtilityModule,
+    AuthModule,
+    UserModule,
+    LineNotifyModule,
+    ArticleModule,
+    GoogleSpreadsheetModule,
 ],
   controllers: [AppController],
   providers: [
