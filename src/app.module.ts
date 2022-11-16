@@ -1,3 +1,4 @@
+import { LineBotModule } from './modules/line-bot/line-bot.module';
 import { GoogleSpreadsheetModule } from './modules/google-spreadsheet/google-spreadsheet.module';
 import { ArticleModule } from './modules/article/article.module';
 import { LineNotifyModule } from './modules/line-notify/line-notify.module';
@@ -10,6 +11,7 @@ import { RolesGuard } from './modules/roles/roles.guard';
 
 
 // Module
+import { LineMessagingModule } from '@nestjs-line/messaging';
 import { HelloModule } from './modules/hello/hello.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -55,6 +57,13 @@ import { ArticleEntity } from './modules/article/entity/article.entity';
     LineNotifyModule,
     ArticleModule,
     GoogleSpreadsheetModule,
+    LineBotModule,
+    /** lineBot */
+    // LineMessagingModule.forRoot({
+    //   channelSecret: 'secret',
+    //   channelAccessToken: 'access_token',
+    // }),
+    /** end.lineBot */
 ],
   controllers: [AppController],
   providers: [
