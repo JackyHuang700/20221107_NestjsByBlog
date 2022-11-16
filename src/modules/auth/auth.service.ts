@@ -21,11 +21,16 @@ export class AuthService implements OnApplicationBootstrap {
  * onApplicationBootstrap() 會在所有 modules 都被初始化後執行
  */
   async onApplicationBootstrap() {
+
+    const _canRun = false // 關閉運行  by railway.app
+    if (_canRun) {
+
     const tse = await this.fetchListedStocks({ market: 'TSE' });
     console.log(tse);   // 顯示上市公司股票清單
 
     const otc = await this.fetchListedStocks({ market: 'OTC' });
     console.log(otc);   // 顯示上櫃公司股票清單
+  }
   }
 
   /** 驗證使用者

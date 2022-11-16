@@ -7,7 +7,7 @@ export class TasksService {
   private readonly logger = new Logger(TasksService.name);
 
   /** 每分鐘的第45秒執行 */
-  @Cron('* 10 * * * *')
+  @Cron('0 10 * * * *')
   // @Cron(CronExpression.EVERY_30_SECONDS)
   handleCron() {
     this.logger.debug('Called when the second is 30');
