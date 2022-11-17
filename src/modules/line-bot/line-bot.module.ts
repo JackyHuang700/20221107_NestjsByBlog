@@ -26,8 +26,8 @@ export class LineBotModule implements NestModule {
     consumer
     .apply(middleware(clientConfig))
     .forRoutes(
-      { path: '/hello', method: RequestMethod.POST }, // POST /todos 會生效
-      { path: '/webhook', method: RequestMethod.POST }, // POST /todos 會生效
+      { path: 'hello', method: RequestMethod.POST }, // POST /todos 會生效
+      { path: 'webhook', method: RequestMethod.POST }, // POST /todos 會生效
     );
 
        // その後、bodyParser を適用する

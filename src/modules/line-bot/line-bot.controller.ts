@@ -16,7 +16,6 @@ export class LineBotController {
    *
    */
   @Post('webhook')
-  @HttpCode(200)
   async pushMessageToLineChannel(req: Request, res: Response) {
     // console.log('pushMessageToLineChannel: ');
 
