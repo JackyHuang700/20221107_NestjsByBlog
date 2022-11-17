@@ -5,6 +5,7 @@ import {
   middleware,
   MiddlewareConfig,
 } from '@line/bot-sdk';
+import bodyParser = require('body-parser');  //  bodyParser
 
 const clientConfig: MiddlewareConfig = {
   channelAccessToken:
@@ -23,8 +24,11 @@ export class LineBotModule implements NestModule {
 
     consumer
     .apply(middleware(clientConfig))
-    // .forRoutes(LineBotController);
-    .forRoutes("line-bot/webhook");
+    .forRoutes(LineBotController);
+
+     // その後、bodyParser を適用する
+     consumer
+     .apply(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
   }
 
 }

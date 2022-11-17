@@ -1,4 +1,4 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, NestApplicationOptions } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   DocumentBuilder,
@@ -9,7 +9,14 @@ import { AppModule } from './app.module';
 import { RolesGuard } from './modules/roles/roles.guard';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+
+ // NestApplicationOptins の bodyParser の設定を無効にする
+ const options: NestApplicationOptions = {
+  bodyParser: false,
+};
+
+
+  const app = await NestFactory.create(AppModule, options);
 
   /** swagger */
   setupSwagger(app);
@@ -22,6 +29,8 @@ async function bootstrap() {
   /** CORS */
   app.enableCors()
   /** end.CORS */
+
+
 
   await app.listen(process.env.PORT || 3000);
   console.log(`Application is running on: ${await app.getUrl()}`);

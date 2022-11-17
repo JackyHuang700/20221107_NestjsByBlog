@@ -35,6 +35,8 @@ export class LineBotController {
     .then((result) => res.json(result));
 
     const client = new Client(clientConfig);
+
+    //
     function handleEvent(event) {
       if (event.type !== 'message' || event.message.type !== 'text') {
         return Promise.resolve(null);
