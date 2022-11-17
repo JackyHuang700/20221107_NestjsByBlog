@@ -12,6 +12,7 @@ const clientConfig: MiddlewareConfig = {
     'ecUpda002462fpBGkT85PeiNa7DpmlfddEIgJj8CUnl0Il4dxq4r4uyYyocTUZ0gg1w2k3R+5eTeExsb9q6mu8QaBecNayHEc1wOLaowU/GFl5c+bIvpiTk3ZAfUprfHDtW7Mw8S0f9zNjaVDvgf8wdB04t89/1O/w1cDnyilFU=',
   channelSecret: '43fd927a58c4ff728e1bed6955ae8913',
 
+
 };
 
 @Module({
@@ -32,7 +33,10 @@ export class LineBotModule implements NestModule {
 
        // その後、bodyParser を適用する
        consumer
-       .apply(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
+       .apply(bodyParser.json()
+
+      //  , bodyParser.urlencoded({ extended: false })
+       );
 
   }
 
