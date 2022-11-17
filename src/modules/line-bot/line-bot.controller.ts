@@ -8,6 +8,12 @@ import {
 export class LineBotController {
   constructor(private readonly lineBotService: LineBotService) {}
 
+
+  @Post('hello')
+hello() {
+  return 'hello'
+}
+
   /**
    *
    */
