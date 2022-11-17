@@ -16,7 +16,7 @@ export class LineBotController {
    *
    */
   @Post('webhook')
-  async pushMessageToLineChannel(req: Request, res: Response) {
+  async webhook(req: Request, res: Response) {
     // console.log('pushMessageToLineChannel: ');
 
     // return this.lineBotService.pushMessageToLineChannel({
@@ -28,31 +28,33 @@ export class LineBotController {
     // this.lineBotService.setMsg()
 
 
-    const events: WebhookEvent[] = req.body.events;
+    res.json(req.body.events) // req.body will be webhook event object
 
-    // Process all of the received events asynchronously.
-    const results = await Promise.all(
-      events.map(async (event: WebhookEvent) => {
-        try {
-          await textEventHandler(event);
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            console.error(err);
-          }
+    // const events: WebhookEvent[] = req.body.events;
 
-          // Return an error message.
-          return res.status(500).json({
-            status: 'error',
-          });
-        }
-      })
-    );
+    // // Process all of the received events asynchronously.
+    // const results = await Promise.all(
+    //   events.map(async (event: WebhookEvent) => {
+    //     try {
+    //       await textEventHandler(event);
+    //     } catch (err: unknown) {
+    //       if (err instanceof Error) {
+    //         console.error(err);
+    //       }
 
-    // Return a successfull message.
-    return res.status(200).json({
-      status: 'success',
-      results,
-    });
+    //       // Return an error message.
+    //       return res.status(500).json({
+    //         status: 'error',
+    //       });
+    //     }
+    //   })
+    // );
+
+    // // Return a successfull message.
+    // return res.status(200).json({
+    //   status: 'success',
+    //   results,
+    // });
 
 
 
