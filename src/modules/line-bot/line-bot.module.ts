@@ -23,7 +23,8 @@ export class LineBotModule implements NestModule {
 
     consumer
     .apply(middleware(clientConfig))
-    .forRoutes(LineBotController);
+    // .forRoutes(LineBotController);
+    .forRoutes("line-bot/webhook");
   }
 
 }
