@@ -21,9 +21,7 @@ const clientConfig: MiddlewareConfig = {
 export class LineBotModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
 
-      // その後、bodyParser を適用する
-      consumer
-      .apply(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
+
 
     consumer
     .apply(middleware(clientConfig))
@@ -32,6 +30,9 @@ export class LineBotModule implements NestModule {
       { path: '/webhook', method: RequestMethod.POST }, // POST /todos 會生效
     );
 
+       // その後、bodyParser を適用する
+       consumer
+       .apply(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
 
   }
 
