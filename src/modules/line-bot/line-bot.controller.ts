@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode } from '@nestjs/common';
 import { LineBotService } from './line-bot.service';
 import {
   Client, ClientConfig
@@ -12,6 +12,7 @@ export class LineBotController {
    *
    */
   @Post('webhook')
+  @HttpCode(200)
   pushMessageToLineChannel(req, res) {
     console.log('pushMessageToLineChannel: ');
 
