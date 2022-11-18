@@ -76,6 +76,6 @@ import { ArticleEntity } from './modules/article/entity/article.entity';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(LoggerMiddleware).forRoutes('*'); // 全域路由
+    consumer.apply(LoggerMiddleware).forRoutes('*'); // 全域路由
   }
 }

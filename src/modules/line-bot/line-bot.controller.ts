@@ -1,6 +1,6 @@
-import { Controller, Get, Post, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode, Body } from '@nestjs/common';
 import { LineBotService } from './line-bot.service';
-import { Client, ClientConfig, MessageAPIResponseBase, TextMessage, WebhookEvent } from '@line/bot-sdk';
+import { Client, ClientConfig, MessageAPIResponseBase, TextMessage, WebhookEvent, WebhookRequestBody } from '@line/bot-sdk';
 import express, { Application, Request, Response } from 'express';
 
 @Controller('line-bot')
@@ -20,10 +20,32 @@ export class LineBotController {
     console.log('isOk: ');
     return 'isOk';
   }
+
+
+// @Post('webhook')
+@Post()
+async handler(@Body() req: WebhookRequestBody) {
+  const events: WebhookEvent[] = req.events;
+  events.map((event) => {
+    if (event.type === 'message') {
+      const returnMessage =
+        event.message.type === 'text'
+          ? event.message.text
+          : 'テキストではありませんでした。';
+      return new Client(clientConfig)
+        .replyMessage(event.replyToken, {
+          type: 'text',
+          text: returnMessage,
+        });
+    }
+  });
+}
+
+
   /**
    *
    */
-  @Post('webhook')
+  @Post('webhookAsfsadf')
   async pushMessageToLineChannel(req: Request, res: Response) {
     console.log('res: ', res);
     console.log('req: ', req);
