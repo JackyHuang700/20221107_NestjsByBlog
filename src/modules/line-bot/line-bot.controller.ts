@@ -90,7 +90,7 @@ export class LineBotController {
 
       // 這段棄用
       const _canRun = false;
-      if (!_canRun) {
+      if (_canRun) {
         if (event.type === 'message') {
           const returnMessage =
             event.message.type === 'text'
