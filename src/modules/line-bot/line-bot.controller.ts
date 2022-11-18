@@ -51,7 +51,7 @@ export class LineBotController {
               // 應聲機,
               _message = {
                 type: 'text',
-                text: event.message.type,
+                text: event.message.text,
               } as TextMessage;
 
               break;
@@ -67,8 +67,8 @@ export class LineBotController {
               // 應聲機,
               _message = {
                 type: 'sticker',
-                packageId: event.message.packageId,
-                stickerId: event.message.stickerId,
+                packageId: /** event.message.packageId */'1',
+                stickerId: /** event.message.stickerId */'1',
               } as StickerMessage;
 
               break;
