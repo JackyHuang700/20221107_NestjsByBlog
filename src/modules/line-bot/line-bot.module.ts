@@ -33,7 +33,7 @@ export class LineBotModule implements NestModule {
 
        // その後、bodyParser を適用する
        consumer
-       .apply(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
+       .apply(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
   }
 
