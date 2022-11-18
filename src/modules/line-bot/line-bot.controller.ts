@@ -29,8 +29,8 @@ export class LineBotController {
     return 'isOk';
   }
 
-  // @Post('webhook')
-  @Post()
+  @Post('webhook')
+  // @Post()
   async handler(@Body() req: WebhookRequestBody) {
     const events: WebhookEvent[] = req.events;
     events.map((event) => {
@@ -39,10 +39,12 @@ export class LineBotController {
       let _message: Message = null;
       let _client: Client = null;
 
+      console.log('event.type: ', event.type);
       switch (event.type) {
         // "message" | "unsend" | "follow" | "unfollow" | "join" | "leave" | "memberJoined" | "memberLeft" | "postback" | "videoPlayComplete" | "beacon" | "accountLink" | "things"
-        case 'message':
+        case 'message': // 使用者傳送訊息
           _replyToken = event.replyToken; // 設定 token
+          console.log('event.message.type: ', event.message.type);
 
           switch (event.message.type) {
             case 'text':
@@ -68,6 +70,7 @@ export class LineBotController {
                 packageId: '11538',
                 stickerId: '51626519',
               } as StickerMessage;
+
               break;
             case 'file':
               break;
