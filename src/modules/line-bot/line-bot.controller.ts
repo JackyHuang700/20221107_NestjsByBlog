@@ -67,8 +67,8 @@ export class LineBotController {
               // 應聲機,
               _message = {
                 type: 'sticker',
-                packageId: '11538',
-                stickerId: '51626519',
+                packageId: '1',
+                stickerId: '1',
               } as StickerMessage;
 
               break;
@@ -79,7 +79,7 @@ export class LineBotController {
               _message = {
                 type: 'text',
                 text: 'テキストではありませんでした。',
-              };
+              } as TextMessage;
               break;
           }
 
