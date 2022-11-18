@@ -67,8 +67,8 @@ export class LineBotController {
               // 應聲機,
               _message = {
                 type: 'sticker',
-                packageId: '1',
-                stickerId: '1',
+                packageId: event.message.packageId,
+                stickerId: event.message.stickerId,
               } as StickerMessage;
 
               break;
@@ -108,6 +108,8 @@ export class LineBotController {
       //   type: 'text',
       //   text: _returnMessage,
       // });
+
+      console.log('_message: ', _message);
       return new Client(clientConfig).replyMessage(_replyToken, _message);
     });
   }
