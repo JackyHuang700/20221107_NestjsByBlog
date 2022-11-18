@@ -1,6 +1,15 @@
 import { Controller, Get, Post, HttpCode, Body } from '@nestjs/common';
 import { LineBotService } from './line-bot.service';
-import { Client, ClientConfig, MessageAPIResponseBase, TextMessage, WebhookEvent, WebhookRequestBody } from '@line/bot-sdk';
+import {
+  Client,
+  ClientConfig,
+  Message,
+  MessageAPIResponseBase,
+  TextMessage,
+  StickerMessage,
+  WebhookEvent,
+  WebhookRequestBody,
+} from '@line/bot-sdk';
 import express, { Application, Request, Response } from 'express';
 
 @Controller('line-bot')
@@ -13,7 +22,6 @@ export class LineBotController {
     return 'hello';
   }
 
-
   @Get('')
   @HttpCode(200)
   isOk() {
@@ -21,26 +29,85 @@ export class LineBotController {
     return 'isOk';
   }
 
+  // @Post('webhook')
+  @Post()
+  async handler(@Body() req: WebhookRequestBody) {
+    const events: WebhookEvent[] = req.events;
+    events.map((event) => {
+      let _returnMessage: string = '';
+      let _replyToken: string = '';
+      let _message: Message = null;
+      let _client: Client = null;
 
-// @Post('webhook')
-@Post()
-async handler(@Body() req: WebhookRequestBody) {
-  const events: WebhookEvent[] = req.events;
-  events.map((event) => {
-    if (event.type === 'message') {
-      const returnMessage =
-        event.message.type === 'text'
-          ? event.message.text
-          : 'テキストではありませんでした。';
-      return new Client(clientConfig)
-        .replyMessage(event.replyToken, {
-          type: 'text',
-          text: returnMessage,
-        });
-    }
-  });
-}
+      switch (event.type) {
+        // "message" | "unsend" | "follow" | "unfollow" | "join" | "leave" | "memberJoined" | "memberLeft" | "postback" | "videoPlayComplete" | "beacon" | "accountLink" | "things"
+        case 'message':
+          _replyToken = event.replyToken; // 設定 token
 
+          switch (event.message.type) {
+            case 'text':
+              // 應聲機,
+              _message = {
+                type: 'text',
+                text: event.message.type,
+              } as TextMessage;
+
+              break;
+            case 'image':
+              break;
+            case 'video':
+              break;
+            case 'audio':
+              break;
+            case 'location':
+              break;
+            case 'sticker':
+              // 應聲機,
+              _message = {
+                type: 'sticker',
+                packageId: '11538',
+                stickerId: '51626519',
+              } as StickerMessage;
+              break;
+            case 'file':
+              break;
+
+            default:
+              _message = {
+                type: 'text',
+                text: 'テキストではありませんでした。',
+              };
+              break;
+          }
+
+          break;
+        default:
+          break;
+      }
+
+      // 這段棄用
+      const _canRun = false;
+      if (!_canRun) {
+        if (event.type === 'message') {
+          const returnMessage =
+            event.message.type === 'text'
+              ? event.message.text
+              : 'テキストではありませんでした。';
+          return new Client(clientConfig).replyMessage(event.replyToken, {
+            type: 'text',
+            text: returnMessage,
+          });
+        }
+      }
+      // end.這段棄用
+
+      // return new Client(clientConfig).replyMessage(_replyToken, {
+      //   type: 'text',
+      //   text: _returnMessage,
+      // });
+      return new Client(clientConfig).replyMessage(_replyToken, _message);
+    });
+  }
 
   /**
    *
@@ -59,7 +126,6 @@ async handler(@Body() req: WebhookRequestBody) {
     // });
     // this.lineBotService.setMsg()
 
-
     const events: WebhookEvent[] = req.body.events;
 
     // Process all of the received events asynchronously.
@@ -77,7 +143,7 @@ async handler(@Body() req: WebhookRequestBody) {
             status: 'error',
           });
         }
-      })
+      }),
     );
 
     // Return a successfull message.
@@ -85,8 +151,6 @@ async handler(@Body() req: WebhookRequestBody) {
       status: 'success',
       results,
     });
-
-
 
     // Promise.all(req.body.events.map(handleEvent)).then((result) =>
     //   res.json(result),
@@ -108,16 +172,16 @@ async handler(@Body() req: WebhookRequestBody) {
   }
 }
 
-
 const clientConfig: ClientConfig = {
   channelAccessToken:
     'ecUpda002462fpBGkT85PeiNa7DpmlfddEIgJj8CUnl0Il4dxq4r4uyYyocTUZ0gg1w2k3R+5eTeExsb9q6mu8QaBecNayHEc1wOLaowU/GFl5c+bIvpiTk3ZAfUprfHDtW7Mw8S0f9zNjaVDvgf8wdB04t89/1O/w1cDnyilFU=',
   channelSecret: '43fd927a58c4ff728e1bed6955ae8913',
 };
 
-
 const client = new Client(clientConfig);
-const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+const textEventHandler = async (
+  event: WebhookEvent,
+): Promise<MessageAPIResponseBase | undefined> => {
   // Process all variables here.
   if (event.type !== 'message' || event.message.type !== 'text') {
     return;
