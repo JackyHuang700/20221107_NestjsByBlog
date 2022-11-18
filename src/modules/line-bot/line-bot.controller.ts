@@ -9,6 +9,7 @@ export class LineBotController {
 
   @Post('hello')
   hello() {
+    console.log('hello: ');
     return 'hello';
   }
 
@@ -16,6 +17,7 @@ export class LineBotController {
   @Get('')
   @HttpCode(200)
   isOk() {
+    console.log('isOk: ');
     return 'isOk';
   }
   /**
@@ -23,6 +25,8 @@ export class LineBotController {
    */
   @Post('webhook')
   async pushMessageToLineChannel(req: Request, res: Response) {
+    console.log('res: ', res);
+    console.log('req: ', req);
     // console.log('pushMessageToLineChannel: ');
 
     // return this.lineBotService.pushMessageToLineChannel({
