@@ -10,24 +10,18 @@ import { RolesGuard } from './modules/roles/roles.guard';
 
 async function bootstrap() {
 
- // NestApplicationOptins の bodyParser の設定を無効にする
- const options: NestApplicationOptions = {
-  bodyParser: false,
-};
-
-
-  const app = await NestFactory.create(AppModule, options);
+  const app = await NestFactory.create(AppModule);
 
   /** swagger */
   setupSwagger(app);
   /** end.swagger */
 
   /** 開啟首衛 */
-  app.useGlobalGuards(new RolesGuard());
+  // app.useGlobalGuards(new RolesGuard());
   /** ned.開啟首衛 */
 
   /** CORS */
-  app.enableCors()
+  // app.enableCors()
   /** end.CORS */
 
 
